@@ -1,12 +1,18 @@
 'use client'
 import Table from '@/components/table'
-import React from 'react'
-
-export default function page() {
-  const expensesData = JSON.parse(localStorage.getItem('expenses') || '[]')
+import React, { useEffect, useState } from 'react'
+export default function Page() {
+  const [data, setData] = useState([])
+  
+  useEffect(() => {
+    const savedDataFromLocalStorage = localStorage.getItem('expenses') || '[]'
+    const expensesData = JSON.parse(savedDataFromLocalStorage)
+    setData(expensesData)
+  }, [])
+  
   return (
     <>
-      <Table expenses={expensesData}/>
+      <Table expenses={data}/>
     </>
   )
 }
